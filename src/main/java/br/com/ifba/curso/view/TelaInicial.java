@@ -113,13 +113,13 @@ public class TelaInicial extends javax.swing.JFrame {
 
         lblcodigotelainicial.setText("CÓDIGO");
         getContentPane().add(lblcodigotelainicial, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, -1, -1));
-        getContentPane().add(txtcodigotelainicial, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, -1, -1));
-        getContentPane().add(txtcodigotelainicial1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 170, -1, -1));
+        getContentPane().add(txtcodigotelainicial, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 80, -1));
+        getContentPane().add(txtcodigotelainicial1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 170, 80, -1));
 
         lblativotelainicial.setText("ATIVO");
         getContentPane().add(lblativotelainicial, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 120, -1, -1));
-        getContentPane().add(txtativotelainicial, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 140, -1, -1));
-        getContentPane().add(txtativotelainicial1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 170, -1, -1));
+        getContentPane().add(txtativotelainicial, new org.netbeans.lib.awtextra.AbsoluteConstraints(354, 140, 80, -1));
+        getContentPane().add(txtativotelainicial1, new org.netbeans.lib.awtextra.AbsoluteConstraints(354, 170, 80, -1));
 
         lbltela.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         getContentPane().add(lbltela, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, 510, 200));

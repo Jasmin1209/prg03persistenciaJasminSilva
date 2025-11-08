@@ -4,6 +4,8 @@
  */
 package br.com.ifba.curso.view;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author USER
@@ -47,6 +49,11 @@ public class TelaEditar extends javax.swing.JFrame {
         getContentPane().add(txteditarnome, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 40, 120, -1));
 
         btnsalvaredicao.setText("SALVAR");
+        btnsalvaredicao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnsalvaredicaoActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnsalvaredicao, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 90, -1, -1));
 
         btnvoltardaedicao.setText("VOLTAR");
@@ -70,6 +77,11 @@ public class TelaEditar extends javax.swing.JFrame {
     private void txteditarnomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txteditarnomeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txteditarnomeActionPerformed
+
+    private void btnsalvaredicaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsalvaredicaoActionPerformed
+        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(this, "Dados Alterados!");
+    }//GEN-LAST:event_btnsalvaredicaoActionPerformed
 
     /**
      * @param args the command line arguments

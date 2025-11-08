@@ -35,7 +35,7 @@ public class TelaListar extends javax.swing.JFrame {
         btnbuscar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblresultados = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        btnvoltarlistar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -68,13 +68,13 @@ public class TelaListar extends javax.swing.JFrame {
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 380, 170));
 
-        jButton1.setText("VOLTAR");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnvoltarlistar.setText("VOLTAR");
+        btnvoltarlistar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnvoltarlistarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 270, -1, -1));
+        getContentPane().add(btnvoltarlistar, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 270, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -84,12 +84,12 @@ public class TelaListar extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnbuscarActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnvoltarlistarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnvoltarlistarActionPerformed
         // TODO add your handling code here:
         TelaInicial telainicial = new TelaInicial();
         telainicial.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnvoltarlistarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -118,7 +118,7 @@ public class TelaListar extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnbuscar;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnvoltarlistar;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblpesquisar;
     private javax.swing.JTable tblresultados;
