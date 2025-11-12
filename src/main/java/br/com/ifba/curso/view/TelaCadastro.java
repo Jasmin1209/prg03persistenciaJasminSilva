@@ -4,10 +4,10 @@
  */
 package br.com.ifba.curso.view;
 
-import br.com.ifba.curso.dao.CursoDAO;
-import br.com.ifba.curso.dao.CursoIDAO;
+import br.com.ifba.curso.dao.CursoDao;
 import br.com.ifba.curso.entity.Curso;
 import javax.swing.JOptionPane;
+import br.com.ifba.curso.dao.CursoIDao;
 /**
  *
  * @author USER
@@ -82,7 +82,7 @@ private static final java.util.logging.Logger logger = java.util.logging.Logger.
         curso.setCodigocurso(txtcodigocursocadastro.getText());
         curso.setNome(txtcadastrarnome.getText());
         curso.setAtivo(true);
-        CursoIDAO cursodao = new CursoDAO();
+        CursoIDao cursodao = new CursoDao();
         cursodao.salvar(curso);
         
         JOptionPane.showMessageDialog(this, "Cadastro Salvo!");

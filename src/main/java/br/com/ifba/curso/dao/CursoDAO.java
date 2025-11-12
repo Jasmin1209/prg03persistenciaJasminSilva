@@ -14,7 +14,7 @@ import java.util.List;
  *
  * @author USER
  */
-public class CursoDAO extends GenericDao<Curso> implements CursoIDAO{
+public class CursoDao extends GenericDao<Curso> implements CursoIDao{
     
     //Atualiza os dados de um curso existente com base no ID.
     public void atualizarcurso(Long id, String codigocurso, String nome, boolean status){ 

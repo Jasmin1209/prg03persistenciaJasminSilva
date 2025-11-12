@@ -11,7 +11,7 @@ import br.com.ifba.infrastructure.dao.GenericIDao;
  *
  * @author USER
  */
-public interface CursoIDAO extends GenericIDao<Curso>{
+public interface CursoIDao extends GenericIDao<Curso>{
     
     public void atualizarcurso(Long id, String codigocurso, String nome, boolean status);
     

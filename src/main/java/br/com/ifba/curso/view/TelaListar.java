@@ -5,11 +5,11 @@
 package br.com.ifba.curso.view;
 
 
-import br.com.ifba.curso.dao.CursoDAO;
-import br.com.ifba.curso.dao.CursoIDAO;
+import br.com.ifba.curso.dao.CursoDao;
 import br.com.ifba.curso.entity.Curso;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import br.com.ifba.curso.dao.CursoIDao;
 /**
  *
  * @author USER
@@ -88,7 +88,7 @@ public class TelaListar extends javax.swing.JFrame {
         try{
             Long id = Long.valueOf(txtpesquisar.getText());
             
-            CursoIDAO dao = new CursoDAO();
+            CursoIDao dao = new CursoDao();
             Curso c = dao.buscarPorId(id);
             
             DefaultTableModel model = (DefaultTableModel) tblresultados.getModel();

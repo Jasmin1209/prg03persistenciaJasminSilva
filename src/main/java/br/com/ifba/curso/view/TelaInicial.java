@@ -4,12 +4,12 @@
  */
 package br.com.ifba.curso.view;
 
-import br.com.ifba.curso.dao.CursoDAO;
-import br.com.ifba.curso.dao.CursoIDAO;
+import br.com.ifba.curso.dao.CursoDao;
 import br.com.ifba.curso.entity.Curso;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import br.com.ifba.curso.dao.CursoIDao;
 
 /**
  *
@@ -169,7 +169,7 @@ public class TelaInicial extends javax.swing.JFrame {
         if(resposta == JOptionPane.YES_OPTION){
             try{
             Long id = Long.valueOf(tbltabeladecursos.getValueAt(linharemover, 0).toString());
-            CursoIDAO cursodao = new CursoDAO();
+            CursoIDao cursodao = new CursoDao();
             Curso c = cursodao.buscarPorId(id);
             
             if(c != null){
@@ -227,7 +227,7 @@ public class TelaInicial extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) tbltabeladecursos.getModel();
         model.setRowCount(0); // limpa a tabela
 
-    CursoDAO dao = new CursoDAO();
+    CursoDao dao = new CursoDao();
     List<Curso> lista = dao.listarcursos(); // busca todos os cursos no BD
 
     for (Curso c : lista) {
