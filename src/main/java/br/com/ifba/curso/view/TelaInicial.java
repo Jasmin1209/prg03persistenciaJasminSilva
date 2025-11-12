@@ -4,7 +4,7 @@
  */
 package br.com.ifba.curso.view;
 
-import br.com.ifba.CursoDAO;
+import br.com.ifba.curso.dao.CursoDAO;
 import br.com.ifba.curso.entity.Curso;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -137,8 +137,8 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private void btneditarinformacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneditarinformacaoActionPerformed
         // TODO add your handling code here:
+        try{
         int linhaeditar = tbltabeladecursos.getSelectedRow();
-        
         long id = Long.parseLong(tbltabeladecursos.getValueAt(linhaeditar, 0).toString());
         String codigocurso = tbltabeladecursos.getValueAt(linhaeditar, 1).toString();
         String nome = tbltabeladecursos.getValueAt(linhaeditar, 2).toString();
@@ -148,20 +148,28 @@ public class TelaInicial extends javax.swing.JFrame {
         telaeditar.setVisible(true);
         atualizarTabela();
         this.dispose();
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(this, "Selecione uma opção para editar");
+        }
     }//GEN-LAST:event_btneditarinformacaoActionPerformed
 
     private void btndeletarinformacoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndeletarinformacoesActionPerformed
         // TODO add your handling code here:
-        int resposta = JOptionPane.showConfirmDialog(this, "Deseja remover esses dados?", "Confirmação", JOptionPane.YES_NO_OPTION);
         
+        int linharemover = tbltabeladecursos.getSelectedRow();
+        if(linharemover == -1){
+            JOptionPane.showMessageDialog(this, "Selecione uma opção para deletar");
+            return;
+        }
+        
+        int resposta = JOptionPane.showConfirmDialog(this, "Deseja remover esses dados?", "Confirmação", JOptionPane.YES_NO_OPTION);
         if(resposta == JOptionPane.YES_OPTION){
-            int linharemover = tbltabeladecursos.getSelectedRow();
-            Long id = (Long) tbltabeladecursos.getValueAt(linharemover, 0);
-            
+            Long id = Long.valueOf(tbltabeladecursos.getValueAt(linharemover, 0).toString());
+
             CursoDAO cursodao = new CursoDAO();
-            cursodao.remover(id);
-            atualizarTabela();
+            cursodao.removercurso(id);
             JOptionPane.showMessageDialog(this, "Dado removido");
+            atualizarTabela();
         }else{
             JOptionPane.showMessageDialog(this, "Operação Cancelada");
         }
@@ -208,11 +216,11 @@ public class TelaInicial extends javax.swing.JFrame {
         model.setRowCount(0); // limpa a tabela
 
     CursoDAO dao = new CursoDAO();
-    List<Curso> lista = dao.listar(); // busca todos os cursos no BD
+    List<Curso> lista = dao.listarcursos(); // busca todos os cursos no BD
 
     for (Curso c : lista) {
         model.addRow(new Object[]{
-            c.getIdcurso(),
+            c.getId(),
             c.getCodigocurso(),
             c.getNome(),
             c.isAtivo() ? "Sim" : "Não"

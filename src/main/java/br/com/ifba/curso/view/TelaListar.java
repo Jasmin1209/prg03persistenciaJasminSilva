@@ -5,7 +5,7 @@
 package br.com.ifba.curso.view;
 
 
-import br.com.ifba.CursoDAO;
+import br.com.ifba.curso.dao.CursoDAO;
 import br.com.ifba.curso.entity.Curso;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -89,14 +89,14 @@ public class TelaListar extends javax.swing.JFrame {
             Long id = Long.valueOf(txtpesquisar.getText());
             
             CursoDAO dao = new CursoDAO();
-            Curso c = dao.buscar(id);
+            Curso c = dao.buscarPorId(id);
             
             DefaultTableModel model = (DefaultTableModel) tblresultados.getModel();
             model.setRowCount(0);
             
             if(c != null){
                 model.addRow(new Object[]{
-                    c.getIdcurso(),
+                    c.getId(),
                     c.getCodigocurso(),
                     c.getNome(),
                     c.isAtivo() ? "Ativo" : "Inativo"

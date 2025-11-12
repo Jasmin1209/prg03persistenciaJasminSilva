@@ -1,6 +1,10 @@
+C:\Users\USER\Documents\NetBeansProjects\prg03persistencia\src\main\java\br\com\ifba\curso\dao\CursoDAO.java
+C:\Users\USER\Documents\NetBeansProjects\prg03persistencia\src\main\java\br\com\ifba\curso\dao\CursoIDAO.java
 C:\Users\USER\Documents\NetBeansProjects\prg03persistencia\src\main\java\br\com\ifba\curso\entity\Curso.java
 C:\Users\USER\Documents\NetBeansProjects\prg03persistencia\src\main\java\br\com\ifba\curso\view\TelaCadastro.java
 C:\Users\USER\Documents\NetBeansProjects\prg03persistencia\src\main\java\br\com\ifba\curso\view\TelaEditar.java
 C:\Users\USER\Documents\NetBeansProjects\prg03persistencia\src\main\java\br\com\ifba\curso\view\TelaInicial.java
 C:\Users\USER\Documents\NetBeansProjects\prg03persistencia\src\main\java\br\com\ifba\curso\view\TelaListar.java
-C:\Users\USER\Documents\NetBeansProjects\prg03persistencia\src\main\java\br\com\ifba\CursoDAO.java
+C:\Users\USER\Documents\NetBeansProjects\prg03persistencia\src\main\java\br\com\ifba\infrastructure\dao\GenericDao.java
+C:\Users\USER\Documents\NetBeansProjects\prg03persistencia\src\main\java\br\com\ifba\infrastructure\dao\GenericIDao.java
+C:\Users\USER\Documents\NetBeansProjects\prg03persistencia\src\main\java\br\com\ifba\infrastructure\entity\PersistenceEntity.java

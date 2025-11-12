@@ -4,31 +4,30 @@
  */
 package br.com.ifba.curso.entity;
 
+import br.com.ifba.infrastructure.entity.PersistenceEntity;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import java.io.Serializable;
 
 /**
  *
  * @author USER
  */
 @Entity
-public class Curso {
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long idcurso;
+@Table(name = "curso")
+public class Curso extends PersistenceEntity implements Serializable{
     
     private String codigocurso;
+    
     private String nome;
-    private boolean ativo;
+    
+    private boolean status;
 
     public Curso() {
         this.codigocurso = codigocurso;
         this.nome = nome;
-        this.ativo = ativo;
-        this.idcurso = (long) (Math.random() * 100);
+        this.status = true;
     }
 
     public String getCodigocurso() {return codigocurso;}
@@ -37,14 +36,12 @@ public class Curso {
     public String getNome() {return nome;}
     public void setNome(String nome) {this.nome = nome;}
 
-    public boolean isAtivo() {return ativo;}
-    public void setAtivo(boolean ativo) {this.ativo = ativo;}
-
-    public long getIdcurso() {return idcurso;}
+    public boolean isAtivo() {return status;}
+    public void setAtivo(boolean ativo) {this.status = ativo;}
     
     @Override
     public String toString() {
-        return "Curso{" + "codigocurso=" + codigocurso + ", nome=" + nome + ", ativo=" + ativo + '}';
+        return "Curso{" + "codigocurso=" + codigocurso + ", nome=" + nome + ", ativo=" + status + '}';
     }
     
     

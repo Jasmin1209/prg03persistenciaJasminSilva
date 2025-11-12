@@ -4,7 +4,7 @@
  */
 package br.com.ifba.curso.view;
 
-import br.com.ifba.CursoDAO;
+import br.com.ifba.curso.dao.CursoDAO;
 import javax.swing.JOptionPane;
 
 /**
@@ -24,8 +24,7 @@ public class TelaEditar extends javax.swing.JFrame {
         initComponents();
         
         this.idOriginal =  id;
-        this.status = true;
-        
+        this.status = status;
         txtcodigocursoeditar.setText(codigocurso);
         txteditarnome.setText(nome);
     }
@@ -99,7 +98,7 @@ public class TelaEditar extends javax.swing.JFrame {
     private void btnsalvaredicaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsalvaredicaoActionPerformed
         // TODO add your handling code here:
         CursoDAO cursodao = new CursoDAO();
-        cursodao.atualizar(idOriginal, txtcodigocursoeditar.getText(), txteditarnome.getText(), status);
+        cursodao.atualizarcurso(idOriginal, txtcodigocursoeditar.getText(), txteditarnome.getText(), status);
         JOptionPane.showMessageDialog(this, "Dados Alterados!");
     }//GEN-LAST:event_btnsalvaredicaoActionPerformed
 
