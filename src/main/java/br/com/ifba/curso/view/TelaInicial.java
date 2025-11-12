@@ -5,6 +5,7 @@
 package br.com.ifba.curso.view;
 
 import br.com.ifba.curso.dao.CursoDAO;
+import br.com.ifba.curso.dao.CursoIDAO;
 import br.com.ifba.curso.entity.Curso;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -157,21 +158,32 @@ public class TelaInicial extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         int linharemover = tbltabeladecursos.getSelectedRow();
+        
         if(linharemover == -1){
             JOptionPane.showMessageDialog(this, "Selecione uma opção para deletar");
             return;
         }
         
         int resposta = JOptionPane.showConfirmDialog(this, "Deseja remover esses dados?", "Confirmação", JOptionPane.YES_NO_OPTION);
+        
         if(resposta == JOptionPane.YES_OPTION){
+            try{
             Long id = Long.valueOf(tbltabeladecursos.getValueAt(linharemover, 0).toString());
-
-            CursoDAO cursodao = new CursoDAO();
-            cursodao.removercurso(id);
-            JOptionPane.showMessageDialog(this, "Dado removido");
-            atualizarTabela();
-        }else{
-            JOptionPane.showMessageDialog(this, "Operação Cancelada");
+            CursoIDAO cursodao = new CursoDAO();
+            Curso c = cursodao.buscarPorId(id);
+            
+            if(c != null){
+                cursodao.remover(c);
+                JOptionPane.showMessageDialog(this, "Dado removido");
+                atualizarTabela();
+            }else{
+                JOptionPane.showMessageDialog(this, "Curso não encontrado");
+            }
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(this, "Erro ao remover: " + e.getMessage());
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Operação cancelada.");
         }
     }//GEN-LAST:event_btndeletarinformacoesActionPerformed
 

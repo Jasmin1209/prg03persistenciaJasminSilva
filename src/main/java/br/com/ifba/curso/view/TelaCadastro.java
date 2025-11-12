@@ -82,7 +82,7 @@ private static final java.util.logging.Logger logger = java.util.logging.Logger.
         curso.setCodigocurso(txtcodigocursocadastro.getText());
         curso.setNome(txtcadastrarnome.getText());
         curso.setAtivo(true);
-        CursoDAO cursodao = new CursoDAO();
+        CursoIDAO cursodao = new CursoDAO();
         cursodao.salvar(curso);
         
         JOptionPane.showMessageDialog(this, "Cadastro Salvo!");
