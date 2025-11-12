@@ -4,8 +4,12 @@
  */
 package br.com.ifba.curso.view;
 
-import javax.swing.JOptionPane;
 
+import br.com.ifba.CursoDAO;
+import br.com.ifba.curso.entity.Curso;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import org.hibernate.engine.transaction.jta.platform.internal.JOTMJtaPlatform;
 /**
  *
  * @author USER
@@ -61,7 +65,7 @@ public class TelaListar extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "ID", "Codigo ", "Nome", "Status"
             }
         ));
         jScrollPane1.setViewportView(tblresultados);
@@ -81,7 +85,30 @@ public class TelaListar extends javax.swing.JFrame {
 
     private void btnbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscarActionPerformed
         // TODO add your handling code here:
-        
+        try{
+            Long id = Long.valueOf(txtpesquisar.getText());
+            
+            CursoDAO dao = new CursoDAO();
+            Curso c = dao.buscar(id);
+            
+            DefaultTableModel model = (DefaultTableModel) tblresultados.getModel();
+            model.setRowCount(0);
+            
+            if(c != null){
+                model.addRow(new Object[]{
+                    c.getIdcurso(),
+                    c.getCodigocurso(),
+                    c.getNome(),
+                    c.isAtivo() ? "Ativo" : "Inativo"
+                });
+            }else {
+                JOptionPane.showMessageDialog(this, "Nenhum curso encontrado com esse ID");
+            }
+        }catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(this, "ID inválido");
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(this, "Erro ao buscar curso: " + e.getMessage());
+        }
     }//GEN-LAST:event_btnbuscarActionPerformed
 
     private void btnvoltarlistarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnvoltarlistarActionPerformed

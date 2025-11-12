@@ -4,7 +4,11 @@
  */
 package br.com.ifba.curso.view;
 
+import br.com.ifba.CursoDAO;
+import br.com.ifba.curso.entity.Curso;
+import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -19,6 +23,7 @@ public class TelaInicial extends javax.swing.JFrame {
      */
     public TelaInicial() {
         initComponents();
+        atualizarTabela();
     }
 
     /**
@@ -30,43 +35,17 @@ public class TelaInicial extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btneditar = new javax.swing.JButton();
-        btnremover = new javax.swing.JButton();
         btncadastrar = new javax.swing.JButton();
         btnlistar = new javax.swing.JButton();
-        lblnometelainicial = new javax.swing.JLabel();
-        txtnomeinicial = new javax.swing.JTextField();
-        txtnomeinial2 = new javax.swing.JTextField();
-        btnremover1 = new javax.swing.JButton();
-        btneditar1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        lblcodigotelainicial = new javax.swing.JLabel();
-        txtcodigotelainicial = new javax.swing.JTextField();
-        txtcodigotelainicial1 = new javax.swing.JTextField();
-        lblativotelainicial = new javax.swing.JLabel();
-        txtativotelainicial = new javax.swing.JTextField();
-        txtativotelainicial1 = new javax.swing.JTextField();
-        lbltela = new javax.swing.JLabel();
         lbltelacurso = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tbltabeladecursos = new javax.swing.JTable();
+        btneditarinformacao = new javax.swing.JButton();
+        btndeletarinformacoes = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        btneditar.setIcon(new javax.swing.ImageIcon("C:\\Users\\USER\\Documents\\NetBeansProjects\\prg03persistencia\\src\\main\\java\\br\\com\\ifba\\curso\\view\\images\\editar.png")); // NOI18N
-        btneditar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btneditarActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btneditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 170, 40, 20));
-
-        btnremover.setIcon(new javax.swing.ImageIcon("C:\\Users\\USER\\Documents\\NetBeansProjects\\prg03persistencia\\src\\main\\java\\br\\com\\ifba\\curso\\view\\images\\remover.png")); // NOI18N
-        btnremover.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnremoverActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnremover, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 170, 40, 20));
 
         btncadastrar.setIcon(new javax.swing.ImageIcon("C:\\Users\\USER\\Documents\\NetBeansProjects\\prg03persistencia\\src\\main\\java\\br\\com\\ifba\\curso\\view\\images\\cadastrar.png")); // NOI18N
         btncadastrar.addActionListener(new java.awt.event.ActionListener() {
@@ -85,80 +64,68 @@ public class TelaInicial extends javax.swing.JFrame {
         });
         getContentPane().add(btnlistar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 110, -1));
 
-        lblnometelainicial.setBackground(new java.awt.Color(204, 255, 255));
-        lblnometelainicial.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lblnometelainicial.setText("NOME");
-        getContentPane().add(lblnometelainicial, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 120, 80, -1));
-        getContentPane().add(txtnomeinicial, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 140, 230, -1));
-        getContentPane().add(txtnomeinial2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 170, 230, -1));
-
-        btnremover1.setIcon(new javax.swing.ImageIcon("C:\\Users\\USER\\Documents\\NetBeansProjects\\prg03persistencia\\src\\main\\java\\br\\com\\ifba\\curso\\view\\images\\remover.png")); // NOI18N
-        btnremover1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnremover1ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnremover1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 140, 40, 20));
-
-        btneditar1.setIcon(new javax.swing.ImageIcon("C:\\Users\\USER\\Documents\\NetBeansProjects\\prg03persistencia\\src\\main\\java\\br\\com\\ifba\\curso\\view\\images\\editar.png")); // NOI18N
-        btneditar1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btneditar1ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btneditar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 140, 40, 20));
-
         jLabel2.setText("CADASTRAR");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 50, -1, -1));
-
-        lblcodigotelainicial.setText("CÓDIGO");
-        getContentPane().add(lblcodigotelainicial, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, -1, -1));
-        getContentPane().add(txtcodigotelainicial, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 80, -1));
-        getContentPane().add(txtcodigotelainicial1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 170, 80, -1));
-
-        lblativotelainicial.setText("ATIVO");
-        getContentPane().add(lblativotelainicial, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 120, -1, -1));
-        getContentPane().add(txtativotelainicial, new org.netbeans.lib.awtextra.AbsoluteConstraints(354, 140, 80, -1));
-        getContentPane().add(txtativotelainicial1, new org.netbeans.lib.awtextra.AbsoluteConstraints(354, 170, 80, -1));
-
-        lbltela.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        getContentPane().add(lbltela, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, 510, 200));
 
         lbltelacurso.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbltelacurso.setText("TELA CURSO");
         lbltelacurso.setBorder(new javax.swing.border.MatteBorder(null));
         getContentPane().add(lbltelacurso, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 510, 30));
 
+        tbltabeladecursos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Código", "Nome", "Status"
+            }
+        ));
+        jScrollPane1.setViewportView(tbltabeladecursos);
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, 420, 220));
+
+        btneditarinformacao.setIcon(new javax.swing.ImageIcon("C:\\Users\\USER\\Documents\\NetBeansProjects\\prg03persistencia\\src\\main\\java\\br\\com\\ifba\\curso\\view\\images\\editar.png")); // NOI18N
+        btneditarinformacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btneditarinformacaoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btneditarinformacao, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 140, 50, 20));
+
+        btndeletarinformacoes.setIcon(new javax.swing.ImageIcon("C:\\Users\\USER\\Documents\\NetBeansProjects\\prg03persistencia\\src\\main\\java\\br\\com\\ifba\\curso\\view\\images\\remover.png")); // NOI18N
+        btndeletarinformacoes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btndeletarinformacoesActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btndeletarinformacoes, new org.netbeans.lib.awtextra.AbsoluteConstraints(512, 140, 50, 20));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btneditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneditarActionPerformed
-        // TODO add your handling code here:
-        TelaEditar teladeedicao = new TelaEditar();
-        teladeedicao.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_btneditarActionPerformed
-
-    private void btnremoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnremoverActionPerformed
-        // TODO add your handling code here:
-        int confirmacao = JOptionPane.showConfirmDialog(
-                this,
-                "Tem certeza que deseja remover ?",
-                "Confirmação",
-                JOptionPane.YES_NO_OPTION);
+    /*public void atualizarTabela(){
+        CursoDAO cursodao = new CursoDAO();
+        List<Curso> listadecursos = cursodao.listar();
         
-        if(confirmacao == JOptionPane.YES_OPTION){
-            JOptionPane.showMessageDialog(this, "Dados removidos");
-        }else{
-            JOptionPane.showMessageDialog(this, "Remoção Cancelada");
+        DefaultTableModel model = (DefaultTableModel) tbltabeladecursos.getModel();
+        
+        
+        for(Curso c : listadecursos){
+            model.addRow(new Object[] {
+                c.getCodigocurso(),
+                c.getNome(),
+                c.isAtivo() ? "ativo" : "inativo"
+            });
         }
-    }//GEN-LAST:event_btnremoverActionPerformed
-
+    }
+    private void formWindowOpened(java.awt.event.WindowEvent evt){
+        atualizarTabela();
+    }*/
+    
     private void btncadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncadastrarActionPerformed
         // TODO add your handling code here:
-        TelaCadastro telacadastro = new TelaCadastro();
+        TelaCadastro telacadastro = new TelaCadastro(this);
         telacadastro.setVisible(true);
-        this.dispose();
     }//GEN-LAST:event_btncadastrarActionPerformed
 
     private void btnlistarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlistarActionPerformed
@@ -168,27 +135,37 @@ public class TelaInicial extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnlistarActionPerformed
 
-    private void btnremover1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnremover1ActionPerformed
+    private void btneditarinformacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneditarinformacaoActionPerformed
         // TODO add your handling code here:
-        int confirmacao = JOptionPane.showConfirmDialog(
-                this,
-                "Tem certeza que deseja remover ?",
-                "Confirmação",
-                JOptionPane.YES_NO_OPTION);
+        int linhaeditar = tbltabeladecursos.getSelectedRow();
         
-        if(confirmacao == JOptionPane.YES_OPTION){
-            JOptionPane.showMessageDialog(this, "Dados removidos");
-        }else{
-            JOptionPane.showMessageDialog(this, "Remoção Cancelada");
-        }
-    }//GEN-LAST:event_btnremover1ActionPerformed
-
-    private void btneditar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneditar1ActionPerformed
-        // TODO add your handling code here:
-        TelaEditar teladeedicao = new TelaEditar();
-        teladeedicao.setVisible(true);
+        long id = Long.parseLong(tbltabeladecursos.getValueAt(linhaeditar, 0).toString());
+        String codigocurso = tbltabeladecursos.getValueAt(linhaeditar, 1).toString();
+        String nome = tbltabeladecursos.getValueAt(linhaeditar, 2).toString();
+        boolean status = Boolean.parseBoolean(tbltabeladecursos.getValueAt(linhaeditar, 3).toString());
+        
+        TelaEditar telaeditar = new TelaEditar(id, codigocurso, nome, status);
+        telaeditar.setVisible(true);
+        atualizarTabela();
         this.dispose();
-    }//GEN-LAST:event_btneditar1ActionPerformed
+    }//GEN-LAST:event_btneditarinformacaoActionPerformed
+
+    private void btndeletarinformacoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndeletarinformacoesActionPerformed
+        // TODO add your handling code here:
+        int resposta = JOptionPane.showConfirmDialog(this, "Deseja remover esses dados?", "Confirmação", JOptionPane.YES_NO_OPTION);
+        
+        if(resposta == JOptionPane.YES_OPTION){
+            int linharemover = tbltabeladecursos.getSelectedRow();
+            Long id = (Long) tbltabeladecursos.getValueAt(linharemover, 0);
+            
+            CursoDAO cursodao = new CursoDAO();
+            cursodao.remover(id);
+            atualizarTabela();
+            JOptionPane.showMessageDialog(this, "Dado removido");
+        }else{
+            JOptionPane.showMessageDialog(this, "Operação Cancelada");
+        }
+    }//GEN-LAST:event_btndeletarinformacoesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -217,22 +194,29 @@ public class TelaInicial extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btncadastrar;
-    private javax.swing.JButton btneditar;
-    private javax.swing.JButton btneditar1;
+    private javax.swing.JButton btndeletarinformacoes;
+    private javax.swing.JButton btneditarinformacao;
     private javax.swing.JButton btnlistar;
-    private javax.swing.JButton btnremover;
-    private javax.swing.JButton btnremover1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel lblativotelainicial;
-    private javax.swing.JLabel lblcodigotelainicial;
-    private javax.swing.JLabel lblnometelainicial;
-    private javax.swing.JLabel lbltela;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbltelacurso;
-    private javax.swing.JTextField txtativotelainicial;
-    private javax.swing.JTextField txtativotelainicial1;
-    private javax.swing.JTextField txtcodigotelainicial;
-    private javax.swing.JTextField txtcodigotelainicial1;
-    private javax.swing.JTextField txtnomeinial2;
-    private javax.swing.JTextField txtnomeinicial;
+    private javax.swing.JTable tbltabeladecursos;
     // End of variables declaration//GEN-END:variables
+
+    public void atualizarTabela() {
+        DefaultTableModel model = (DefaultTableModel) tbltabeladecursos.getModel();
+        model.setRowCount(0); // limpa a tabela
+
+    CursoDAO dao = new CursoDAO();
+    List<Curso> lista = dao.listar(); // busca todos os cursos no BD
+
+    for (Curso c : lista) {
+        model.addRow(new Object[]{
+            c.getIdcurso(),
+            c.getCodigocurso(),
+            c.getNome(),
+            c.isAtivo() ? "Sim" : "Não"
+        });
+    }
+    }
 }

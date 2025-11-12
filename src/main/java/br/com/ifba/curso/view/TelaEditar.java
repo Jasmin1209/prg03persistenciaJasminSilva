@@ -4,6 +4,7 @@
  */
 package br.com.ifba.curso.view;
 
+import br.com.ifba.CursoDAO;
 import javax.swing.JOptionPane;
 
 /**
@@ -14,13 +15,24 @@ public class TelaEditar extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(TelaEditar.class.getName());
 
+    private long idOriginal;
+    private boolean status;
     /**
      * Creates new form TelaEditar
      */
-    public TelaEditar() {
+    public TelaEditar(long id, String codigocurso, String nome, boolean status) {
         initComponents();
+        
+        this.idOriginal =  id;
+        this.status = true;
+        
+        txtcodigocursoeditar.setText(codigocurso);
+        txteditarnome.setText(nome);
     }
 
+    public TelaEditar(){
+        initComponents();
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -34,19 +46,21 @@ public class TelaEditar extends javax.swing.JFrame {
         txteditarnome = new javax.swing.JTextField();
         btnsalvaredicao = new javax.swing.JButton();
         btnvoltardaedicao = new javax.swing.JButton();
+        lblcodigocursoeditar = new javax.swing.JLabel();
+        txtcodigocursoeditar = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lbleditarnome.setText("Nome");
-        getContentPane().add(lbleditarnome, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 45, -1, -1));
+        getContentPane().add(lbleditarnome, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, -1, -1));
 
         txteditarnome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txteditarnomeActionPerformed(evt);
             }
         });
-        getContentPane().add(txteditarnome, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 40, 120, -1));
+        getContentPane().add(txteditarnome, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 90, 280, -1));
 
         btnsalvaredicao.setText("SALVAR");
         btnsalvaredicao.addActionListener(new java.awt.event.ActionListener() {
@@ -54,7 +68,7 @@ public class TelaEditar extends javax.swing.JFrame {
                 btnsalvaredicaoActionPerformed(evt);
             }
         });
-        getContentPane().add(btnsalvaredicao, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 90, -1, -1));
+        getContentPane().add(btnsalvaredicao, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 120, -1, -1));
 
         btnvoltardaedicao.setText("VOLTAR");
         btnvoltardaedicao.addActionListener(new java.awt.event.ActionListener() {
@@ -62,7 +76,11 @@ public class TelaEditar extends javax.swing.JFrame {
                 btnvoltardaedicaoActionPerformed(evt);
             }
         });
-        getContentPane().add(btnvoltardaedicao, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 140, -1, -1));
+        getContentPane().add(btnvoltardaedicao, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 250, -1, -1));
+
+        lblcodigocursoeditar.setText("CÓDIGO");
+        getContentPane().add(lblcodigocursoeditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
+        getContentPane().add(txtcodigocursoeditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 60, 120, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -80,6 +98,8 @@ public class TelaEditar extends javax.swing.JFrame {
 
     private void btnsalvaredicaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsalvaredicaoActionPerformed
         // TODO add your handling code here:
+        CursoDAO cursodao = new CursoDAO();
+        cursodao.atualizar(idOriginal, txtcodigocursoeditar.getText(), txteditarnome.getText(), status);
         JOptionPane.showMessageDialog(this, "Dados Alterados!");
     }//GEN-LAST:event_btnsalvaredicaoActionPerformed
 
@@ -111,7 +131,9 @@ public class TelaEditar extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnsalvaredicao;
     private javax.swing.JButton btnvoltardaedicao;
+    private javax.swing.JLabel lblcodigocursoeditar;
     private javax.swing.JLabel lbleditarnome;
+    private javax.swing.JTextField txtcodigocursoeditar;
     private javax.swing.JTextField txteditarnome;
     // End of variables declaration//GEN-END:variables
 }

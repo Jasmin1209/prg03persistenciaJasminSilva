@@ -4,21 +4,27 @@
  */
 package br.com.ifba.curso.view;
 
+import br.com.ifba.CursoDAO;
+import br.com.ifba.curso.entity.Curso;
 import javax.swing.JOptionPane;
-
 /**
  *
  * @author USER
  */
 public class TelaCadastro extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(TelaCadastro.class.getName());
-
+private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(TelaCadastro.class.getName());
     /**
      * Creates new form TelaCadastro
      */
-    public TelaCadastro() {
+
+    // Referência à tela inicial para atualizar a tabela após o cadastro
+    private TelaInicial aThis;
+    
+    
+    public TelaCadastro(TelaInicial aThis) {
         initComponents();
+        this.aThis = aThis; //Recebe uma instância de TelaInicial (para atualizar a lista ao salvar um novo curso).
     }
 
     /**
@@ -33,13 +39,16 @@ public class TelaCadastro extends javax.swing.JFrame {
         lblcadastrarnome = new javax.swing.JLabel();
         txtcadastrarnome = new javax.swing.JTextField();
         btnsalvarcadastro = new javax.swing.JButton();
+        btnvoltarcadastro = new javax.swing.JButton();
+        lblcodigocurso = new javax.swing.JLabel();
+        txtcodigocursocadastro = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblcadastrarnome.setText("NOME:");
         getContentPane().add(lblcadastrarnome, new org.netbeans.lib.awtextra.AbsoluteConstraints(34, 62, -1, -1));
-        getContentPane().add(txtcadastrarnome, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 60, 150, -1));
+        getContentPane().add(txtcadastrarnome, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 60, 270, -1));
 
         btnsalvarcadastro.setText("SALVAR");
         btnsalvarcadastro.addActionListener(new java.awt.event.ActionListener() {
@@ -47,47 +56,59 @@ public class TelaCadastro extends javax.swing.JFrame {
                 btnsalvarcadastroActionPerformed(evt);
             }
         });
-        getContentPane().add(btnsalvarcadastro, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 60, -1, -1));
+        getContentPane().add(btnsalvarcadastro, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, -1, -1));
+
+        btnvoltarcadastro.setText("VOLTAR");
+        btnvoltarcadastro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnvoltarcadastroActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnvoltarcadastro, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, -1, -1));
+
+        lblcodigocurso.setText("CÓDIGO");
+        getContentPane().add(lblcodigocurso, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, -1));
+        getContentPane().add(txtcodigocursocadastro, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 30, 140, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnsalvarcadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsalvarcadastroActionPerformed
         // TODO add your handling code here:
+      
+        try{
+        Curso curso = new Curso();
+        curso.setCodigocurso(txtcodigocursocadastro.getText());
+        curso.setNome(txtcadastrarnome.getText());
+        curso.setAtivo(true);
+        new CursoDAO().salvar(curso);
         JOptionPane.showMessageDialog(this, "Cadastro Salvo!");
+        
+        if(aThis != null){
+            aThis.atualizarTabela();
+        }
+        this.dispose(); 
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(this, "Erro: " + e.getMessage());
+        }
+       
+    }//GEN-LAST:event_btnsalvarcadastroActionPerformed
+
+    private void btnvoltarcadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnvoltarcadastroActionPerformed
+        // TODO add your handling code here:
         TelaInicial telainicial = new TelaInicial();
         telainicial.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_btnsalvarcadastroActionPerformed
+    }//GEN-LAST:event_btnvoltarcadastroActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new TelaCadastro().setVisible(true));
-    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnsalvarcadastro;
+    private javax.swing.JButton btnvoltarcadastro;
     private javax.swing.JLabel lblcadastrarnome;
+    private javax.swing.JLabel lblcodigocurso;
     private javax.swing.JTextField txtcadastrarnome;
+    private javax.swing.JTextField txtcodigocursocadastro;
     // End of variables declaration//GEN-END:variables
 }
