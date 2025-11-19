@@ -13,13 +13,13 @@ import java.util.List;
  * @param <Entity>
  */
 public interface GenericIDao<Entity extends PersistenceEntity> {
-    public abstract Entity salvar(Entity obj);
+    public abstract Entity save(Entity obj);
     
-    public abstract Entity atualizar(Entity obj);
+    public abstract Entity update(Entity obj);
     
-    public abstract void remover(Entity obj);
+    public abstract void remove(Entity obj);
     
-    public abstract List<Entity> listarTodos();
+    public abstract List<Entity> findAll();
     
-    public abstract Entity buscarPorId(Long id);
+    public abstract Entity findById(Long id);
 }

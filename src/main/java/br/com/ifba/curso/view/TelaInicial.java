@@ -4,18 +4,23 @@
  */
 package br.com.ifba.curso.view;
 
-import br.com.ifba.curso.dao.CursoDao;
+import br.com.ifba.curso.controller.CursoController;
+import br.com.ifba.curso.controller.CursoIController;
 import br.com.ifba.curso.entity.Curso;
+import br.com.ifba.infrastructure.util.StringUtil;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import br.com.ifba.curso.dao.CursoIDao;
 
 /**
  *
  * @author USER
  */
-public class TelaInicial extends javax.swing.JFrame {
+public final class TelaInicial extends javax.swing.JFrame {
+    
+    private final CursoIController cursoController = new CursoController();
+    private List<Curso> lista = new ArrayList<>();
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(TelaInicial.class.getName());
 
@@ -104,24 +109,21 @@ public class TelaInicial extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /*public void atualizarTabela(){
-        CursoDAO cursodao = new CursoDAO();
-        List<Curso> listadecursos = cursodao.listar();
-        
+    public void atualizarTabela() {
         DefaultTableModel model = (DefaultTableModel) tbltabeladecursos.getModel();
-        
-        
-        for(Curso c : listadecursos){
-            model.addRow(new Object[] {
+        model.setRowCount(0); // limpa a tabela
+
+        lista = cursoController.findAll(); // busca todos os cursos no BD
+
+        for (Curso c : lista) {
+            model.addRow(new Object[]{
+                c.getId(),
                 c.getCodigocurso(),
                 c.getNome(),
-                c.isAtivo() ? "ativo" : "inativo"
+                c.isAtivo() ? "Sim" : "Não"
             });
         }
     }
-    private void formWindowOpened(java.awt.event.WindowEvent evt){
-        atualizarTabela();
-    }*/
     
     private void btncadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncadastrarActionPerformed
         // TODO add your handling code here:
@@ -140,15 +142,13 @@ public class TelaInicial extends javax.swing.JFrame {
         // TODO add your handling code here:
         try{
         int linhaeditar = tbltabeladecursos.getSelectedRow();
-        long id = Long.parseLong(tbltabeladecursos.getValueAt(linhaeditar, 0).toString());
-        String codigocurso = tbltabeladecursos.getValueAt(linhaeditar, 1).toString();
-        String nome = tbltabeladecursos.getValueAt(linhaeditar, 2).toString();
-        boolean status = Boolean.parseBoolean(tbltabeladecursos.getValueAt(linhaeditar, 3).toString());
+        Curso dados = lista.get(linhaeditar);
         
-        TelaEditar telaeditar = new TelaEditar(id, codigocurso, nome, status);
+        TelaEditar telaeditar = new TelaEditar(this, dados);
+        
         telaeditar.setVisible(true);
-        atualizarTabela();
         this.dispose();
+        
         }catch(Exception e){
             JOptionPane.showMessageDialog(this, "Selecione uma opção para editar");
         }
@@ -169,16 +169,18 @@ public class TelaInicial extends javax.swing.JFrame {
         if(resposta == JOptionPane.YES_OPTION){
             try{
             Long id = Long.valueOf(tbltabeladecursos.getValueAt(linharemover, 0).toString());
-            CursoIDao cursodao = new CursoDao();
-            Curso c = cursodao.buscarPorId(id);
+            Curso c = cursoController.findById(id);
             
-            if(c != null){
-                cursodao.remover(c);
+            if(StringUtil.isNullOrEmpty(c.getCodigocurso()) || 
+                StringUtil.isNullOrEmpty(c.getNome())){
+                JOptionPane.showMessageDialog(this, "Curso não encontrado");
+                
+            }else{
+                cursoController.remove(c);
                 JOptionPane.showMessageDialog(this, "Dado removido");
                 atualizarTabela();
-            }else{
-                JOptionPane.showMessageDialog(this, "Curso não encontrado");
             }
+            
             }catch(Exception e){
                 JOptionPane.showMessageDialog(this, "Erro ao remover: " + e.getMessage());
             }
@@ -223,20 +225,5 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JTable tbltabeladecursos;
     // End of variables declaration//GEN-END:variables
 
-    public void atualizarTabela() {
-        DefaultTableModel model = (DefaultTableModel) tbltabeladecursos.getModel();
-        model.setRowCount(0); // limpa a tabela
-
-    CursoDao dao = new CursoDao();
-    List<Curso> lista = dao.listarcursos(); // busca todos os cursos no BD
-
-    for (Curso c : lista) {
-        model.addRow(new Object[]{
-            c.getId(),
-            c.getCodigocurso(),
-            c.getNome(),
-            c.isAtivo() ? "Sim" : "Não"
-        });
-    }
-    }
+    
 }

@@ -4,16 +4,19 @@
  */
 package br.com.ifba.curso.view;
 
-import br.com.ifba.curso.dao.CursoDao;
+import br.com.ifba.curso.controller.CursoController;
+import br.com.ifba.curso.controller.CursoIController;
 import br.com.ifba.curso.entity.Curso;
+import br.com.ifba.infrastructure.util.StringUtil;
 import javax.swing.JOptionPane;
-import br.com.ifba.curso.dao.CursoIDao;
 /**
  *
  * @author USER
  */
 public class TelaCadastro extends javax.swing.JFrame {
-    
+
+private final CursoIController cursoController = new CursoController();
+
 private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(TelaCadastro.class.getName());
     /**
      * Creates new form TelaCadastro
@@ -78,19 +81,26 @@ private static final java.util.logging.Logger logger = java.util.logging.Logger.
         // TODO add your handling code here:
       
         try{
+            if(StringUtil.isNullOrEmpty(txtcodigocursocadastro.getText())){
+                JOptionPane.showMessageDialog(this, "O campo código é obrigatório");
+                return;
+            }
+            if(StringUtil.isNullOrEmpty(txtcadastrarnome.getText())){
+                JOptionPane.showMessageDialog(this, "O nome é obrigatório");
+            }
+            
         Curso curso = new Curso();
         curso.setCodigocurso(txtcodigocursocadastro.getText());
         curso.setNome(txtcadastrarnome.getText());
         curso.setAtivo(true);
-        CursoIDao cursodao = new CursoDao();
-        cursodao.salvar(curso);
+        cursoController.save(curso);
         
         JOptionPane.showMessageDialog(this, "Cadastro Salvo!");
         
-        if(aThis != null){
-            aThis.atualizarTabela();
-        }
-        this.dispose(); 
+            if(aThis != null){
+             aThis.atualizarTabela();
+            }
+            
         }catch (Exception e){
             JOptionPane.showMessageDialog(this, "Erro: " + e.getMessage());
         }

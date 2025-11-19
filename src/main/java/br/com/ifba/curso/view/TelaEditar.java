@@ -4,34 +4,39 @@
  */
 package br.com.ifba.curso.view;
 
-import br.com.ifba.curso.dao.CursoDao;
+import br.com.ifba.curso.controller.CursoController;
+import br.com.ifba.curso.controller.CursoIController;
+import br.com.ifba.curso.entity.Curso;
 import javax.swing.JOptionPane;
-import br.com.ifba.curso.dao.CursoIDao;
 
 /**
  *
  * @author USER
  */
 public class TelaEditar extends javax.swing.JFrame {
+    private final CursoIController cursoController = new CursoController();
+    private final Curso curso;
+    private final TelaInicial telainicial;
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(TelaEditar.class.getName());
 
-    private long idOriginal;
-    private boolean status;
+    
     /**
      * Creates new form TelaEditar
      */
-    public TelaEditar(long id, String codigocurso, String nome, boolean status) {
+    public TelaEditar(TelaInicial telainicial, Curso curso) {
         initComponents();
+        this.curso = curso;
+        this.telainicial = telainicial;
         
-        this.idOriginal =  id;
-        this.status = status;
-        txtcodigocursoeditar.setText(codigocurso);
-        txteditarnome.setText(nome);
+        txtcodigocursoeditar.setText(curso.getCodigocurso());
+        txteditarnome.setText(curso.getNome());
     }
 
     public TelaEditar(){
         initComponents();
+        this.curso = null;
+        this.telainicial = null;
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -87,7 +92,6 @@ public class TelaEditar extends javax.swing.JFrame {
 
     private void btnvoltardaedicaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnvoltardaedicaoActionPerformed
         // TODO add your handling code here:
-        TelaInicial telainicial = new TelaInicial();
         telainicial.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnvoltardaedicaoActionPerformed
@@ -98,9 +102,21 @@ public class TelaEditar extends javax.swing.JFrame {
 
     private void btnsalvaredicaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsalvaredicaoActionPerformed
         // TODO add your handling code here:
-        CursoIDao cursodao = new CursoDao();
-        cursodao.atualizarcurso(idOriginal, txtcodigocursoeditar.getText(), txteditarnome.getText(), status);
-        JOptionPane.showMessageDialog(this, "Dados Alterados!");
+        try{
+            curso.setCodigocurso(txtcodigocursoeditar.getText());
+            curso.setNome(txteditarnome.getText());
+            
+            cursoController.update(curso);
+            JOptionPane.showMessageDialog(this, "Dados Alterados!");
+            
+            if(telainicial != null){
+                telainicial.atualizarTabela();
+            }
+            
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(this, "Erro: " + e.getMessage());
+        }
+        
     }//GEN-LAST:event_btnsalvaredicaoActionPerformed
 
     /**

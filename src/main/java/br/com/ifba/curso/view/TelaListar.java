@@ -5,16 +5,17 @@
 package br.com.ifba.curso.view;
 
 
-import br.com.ifba.curso.dao.CursoDao;
+import br.com.ifba.curso.controller.CursoController;
+import br.com.ifba.curso.controller.CursoIController;
 import br.com.ifba.curso.entity.Curso;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import br.com.ifba.curso.dao.CursoIDao;
 /**
  *
  * @author USER
  */
 public class TelaListar extends javax.swing.JFrame {
+    private final CursoIController cursoController = new CursoController();
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(TelaListar.class.getName());
 
@@ -87,9 +88,8 @@ public class TelaListar extends javax.swing.JFrame {
         // TODO add your handling code here:
         try{
             Long id = Long.valueOf(txtpesquisar.getText());
-            
-            CursoIDao dao = new CursoDao();
-            Curso c = dao.buscarPorId(id);
+           
+            Curso c = cursoController.findById(id);
             
             DefaultTableModel model = (DefaultTableModel) tblresultados.getModel();
             model.setRowCount(0);
