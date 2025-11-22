@@ -28,7 +28,7 @@
     <Component class="javax.swing.JButton" name="btncadastrar">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="C:\Users\USER\Documents\NetBeansProjects\prg03persistencia\src\main\java\br\com\ifba\curso\view\images\cadastrar.png"/>
+          <Image iconType="3" name="/imagens/cadastrar.png"/>
         </Property>
       </Properties>
       <Events>
@@ -36,14 +36,14 @@
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="430" y="70" width="110" height="-1"/>
+          <AbsoluteConstraints x="430" y="70" width="110" height="30"/>
         </Constraint>
       </Constraints>
     </Component>
     <Component class="javax.swing.JButton" name="btnlistar">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="C:\Users\USER\Documents\NetBeansProjects\prg03persistencia\src\main\java\br\com\ifba\curso\view\images\pesquisar.png"/>
+          <Image iconType="3" name="/imagens/pesquisar.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="LISTAR"/>
       </Properties>
@@ -138,7 +138,7 @@
     <Component class="javax.swing.JButton" name="btneditarinformacao">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="C:\Users\USER\Documents\NetBeansProjects\prg03persistencia\src\main\java\br\com\ifba\curso\view\images\editar.png"/>
+          <Image iconType="3" name="/imagens/editar.png"/>
         </Property>
       </Properties>
       <Events>
@@ -153,7 +153,7 @@
     <Component class="javax.swing.JButton" name="btndeletarinformacoes">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="C:\Users\USER\Documents\NetBeansProjects\prg03persistencia\src\main\java\br\com\ifba\curso\view\images\remover.png"/>
+          <Image iconType="3" name="/imagens/remover.png"/>
         </Property>
       </Properties>
       <Events>

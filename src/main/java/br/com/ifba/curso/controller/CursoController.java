@@ -6,16 +6,21 @@ package br.com.ifba.curso.controller;
 
 import br.com.ifba.curso.entity.Curso;
 import br.com.ifba.curso.service.CursoIService;
-import br.com.ifba.curso.service.CursoService;
 import br.com.ifba.infrastructure.util.StringUtil;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
 /**
  *
  * @author USER
  */
+
+@Controller
 public class CursoController implements CursoIController{
-    private final CursoIService cursoIService = new CursoService();
+    
+    @Autowired
+    private CursoIService cursoIService;
     
     @Override
     public Curso save (Curso curso) throws RuntimeException{

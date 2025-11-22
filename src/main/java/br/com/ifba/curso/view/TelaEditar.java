@@ -4,40 +4,49 @@
  */
 package br.com.ifba.curso.view;
 
-import br.com.ifba.curso.controller.CursoController;
 import br.com.ifba.curso.controller.CursoIController;
 import br.com.ifba.curso.entity.Curso;
+import br.com.ifba.infrastructure.spring.SpringContext;
 import javax.swing.JOptionPane;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 /**
  *
  * @author USER
  */
+
+@Component
+@Scope("prototype")
 public class TelaEditar extends javax.swing.JFrame {
-    private final CursoIController cursoController = new CursoController();
-    private final Curso curso;
-    private final TelaInicial telainicial;
+    
+    
+    @Autowired
+    private CursoIController cursoController;
+    
+    private TelaInicial telainicial;
+    private Curso curso; 
+    
+    public void setTelaInicial(TelaInicial telainicial) {
+        this.telainicial = telainicial;
+    }
+
+    public void setCurso(Curso curso) {
+        this.curso = curso;
+        txteditarnome.setText(curso.getNome());
+        txtcodigocursoeditar.setText(curso.getCodigocurso());
+    }
+
+    public TelaEditar() {
+        initComponents();
+    }
+    
+    
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(TelaEditar.class.getName());
 
     
-    /**
-     * Creates new form TelaEditar
-     */
-    public TelaEditar(TelaInicial telainicial, Curso curso) {
-        initComponents();
-        this.curso = curso;
-        this.telainicial = telainicial;
-        
-        txtcodigocursoeditar.setText(curso.getCodigocurso());
-        txteditarnome.setText(curso.getNome());
-    }
-
-    public TelaEditar(){
-        initComponents();
-        this.curso = null;
-        this.telainicial = null;
-    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -50,7 +59,6 @@ public class TelaEditar extends javax.swing.JFrame {
         lbleditarnome = new javax.swing.JLabel();
         txteditarnome = new javax.swing.JTextField();
         btnsalvaredicao = new javax.swing.JButton();
-        btnvoltardaedicao = new javax.swing.JButton();
         lblcodigocursoeditar = new javax.swing.JLabel();
         txtcodigocursoeditar = new javax.swing.JTextField();
 
@@ -75,26 +83,12 @@ public class TelaEditar extends javax.swing.JFrame {
         });
         getContentPane().add(btnsalvaredicao, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 120, -1, -1));
 
-        btnvoltardaedicao.setText("VOLTAR");
-        btnvoltardaedicao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnvoltardaedicaoActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnvoltardaedicao, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 250, -1, -1));
-
         lblcodigocursoeditar.setText("CÓDIGO");
         getContentPane().add(lblcodigocursoeditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
         getContentPane().add(txtcodigocursoeditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 60, 120, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnvoltardaedicaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnvoltardaedicaoActionPerformed
-        // TODO add your handling code here:
-        telainicial.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_btnvoltardaedicaoActionPerformed
 
     private void txteditarnomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txteditarnomeActionPerformed
         // TODO add your handling code here:
@@ -109,9 +103,9 @@ public class TelaEditar extends javax.swing.JFrame {
             cursoController.update(curso);
             JOptionPane.showMessageDialog(this, "Dados Alterados!");
             
-            if(telainicial != null){
-                telainicial.atualizarTabela();
-            }
+            telainicial.atualizarTabela();
+            telainicial.setVisible(true);
+            this.dispose();
             
         }catch(Exception e){
             JOptionPane.showMessageDialog(this, "Erro: " + e.getMessage());
@@ -119,34 +113,9 @@ public class TelaEditar extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnsalvaredicaoActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new TelaEditar().setVisible(true));
-    }
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnsalvaredicao;
-    private javax.swing.JButton btnvoltardaedicao;
     private javax.swing.JLabel lblcodigocursoeditar;
     private javax.swing.JLabel lbleditarnome;
     private javax.swing.JTextField txtcodigocursoeditar;

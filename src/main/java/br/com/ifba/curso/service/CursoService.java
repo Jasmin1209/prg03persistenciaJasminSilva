@@ -9,13 +9,19 @@ import br.com.ifba.curso.dao.CursoIDao;
 import br.com.ifba.curso.entity.Curso;
 import br.com.ifba.infrastructure.util.StringUtil;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author USER
  */
+
+@Service
 public class CursoService implements CursoIService{
-    private final CursoIDao cursoDao = new CursoDao(); 
+    
+    @Autowired
+    private CursoIDao cursoDao; 
     //cursoDao herda todas as funcionalidades do GenericDao sendo possível acessa-las
     
     @Override
@@ -30,14 +36,12 @@ public class CursoService implements CursoIService{
     
     @Override
     public Curso update (Curso curso)throws RuntimeException{
-        Curso c = cursoDao.findById(curso.getId());
-        
-        if(StringUtil.isNullOrEmpty(c.getCodigocurso()) || 
-                StringUtil.isNullOrEmpty(c.getNome())){
+       
+        if(cursoDao.findById(curso.getId()) == null){
             throw new RuntimeException("Curso não encontrado");
         }else{
             
-        return cursoDao.update(c);
+        return cursoDao.update(curso);
         }
     }
     
@@ -45,7 +49,7 @@ public class CursoService implements CursoIService{
     public void remove (Curso curso){
         Curso c = cursoDao.findById(curso.getId());
         if(c == null){
-            throw new RuntimeException("Todos os dados devem ser preencidos");
+            throw new RuntimeException("Curso não encontrado");
         }else{
             cursoDao.remove(c);
         }

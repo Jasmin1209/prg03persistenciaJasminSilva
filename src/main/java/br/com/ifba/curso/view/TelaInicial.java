@@ -4,31 +4,45 @@
  */
 package br.com.ifba.curso.view;
 
-import br.com.ifba.curso.controller.CursoController;
 import br.com.ifba.curso.controller.CursoIController;
 import br.com.ifba.curso.entity.Curso;
-import br.com.ifba.infrastructure.util.StringUtil;
+import br.com.ifba.infrastructure.spring.SpringContext;
+import jakarta.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 /**
  *
  * @author USER
  */
-public final class TelaInicial extends javax.swing.JFrame {
+
+@Component //Bean gerenciado
+@Scope("prototype") /*
+                     *Uma nova instância é aberta toda vez que abrir a tela
+                     *Impede que as telas com dados antigos
+                    */
+public class TelaInicial extends javax.swing.JFrame {
     
-    private final CursoIController cursoController = new CursoController();
+    
+    @Autowired //Injeta automaticamente o Controller
+    private CursoIController cursoController;
+    
     private List<Curso> lista = new ArrayList<>();
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(TelaInicial.class.getName());
 
-    /**
-     * Creates new form TelaInicial
-     */
+    
     public TelaInicial() {
-        initComponents();
+    initComponents();
+    }
+    
+    @PostConstruct //executa depois do Spring, atualizando a tela sempre
+    public void init(){
         atualizarTabela();
     }
 
@@ -53,15 +67,15 @@ public final class TelaInicial extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btncadastrar.setIcon(new javax.swing.ImageIcon("C:\\Users\\USER\\Documents\\NetBeansProjects\\prg03persistencia\\src\\main\\java\\br\\com\\ifba\\curso\\view\\images\\cadastrar.png")); // NOI18N
+        btncadastrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/cadastrar.png"))); // NOI18N
         btncadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btncadastrarActionPerformed(evt);
             }
         });
-        getContentPane().add(btncadastrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 70, 110, -1));
+        getContentPane().add(btncadastrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 70, 110, 30));
 
-        btnlistar.setIcon(new javax.swing.ImageIcon("C:\\Users\\USER\\Documents\\NetBeansProjects\\prg03persistencia\\src\\main\\java\\br\\com\\ifba\\curso\\view\\images\\pesquisar.png")); // NOI18N
+        btnlistar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pesquisar.png"))); // NOI18N
         btnlistar.setText("LISTAR");
         btnlistar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -90,7 +104,7 @@ public final class TelaInicial extends javax.swing.JFrame {
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, 420, 220));
 
-        btneditarinformacao.setIcon(new javax.swing.ImageIcon("C:\\Users\\USER\\Documents\\NetBeansProjects\\prg03persistencia\\src\\main\\java\\br\\com\\ifba\\curso\\view\\images\\editar.png")); // NOI18N
+        btneditarinformacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/editar.png"))); // NOI18N
         btneditarinformacao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btneditarinformacaoActionPerformed(evt);
@@ -98,7 +112,7 @@ public final class TelaInicial extends javax.swing.JFrame {
         });
         getContentPane().add(btneditarinformacao, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 140, 50, 20));
 
-        btndeletarinformacoes.setIcon(new javax.swing.ImageIcon("C:\\Users\\USER\\Documents\\NetBeansProjects\\prg03persistencia\\src\\main\\java\\br\\com\\ifba\\curso\\view\\images\\remover.png")); // NOI18N
+        btndeletarinformacoes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/remover.png"))); // NOI18N
         btndeletarinformacoes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btndeletarinformacoesActionPerformed(evt);
@@ -110,11 +124,13 @@ public final class TelaInicial extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     public void atualizarTabela() {
+        //modelo da tabla
         DefaultTableModel model = (DefaultTableModel) tbltabeladecursos.getModel();
         model.setRowCount(0); // limpa a tabela
 
         lista = cursoController.findAll(); // busca todos os cursos no BD
 
+        //realiza a adição como uma linha
         for (Curso c : lista) {
             model.addRow(new Object[]{
                 c.getId(),
@@ -127,14 +143,17 @@ public final class TelaInicial extends javax.swing.JFrame {
     
     private void btncadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncadastrarActionPerformed
         // TODO add your handling code here:
-        TelaCadastro telacadastro = new TelaCadastro(this);
-        telacadastro.setVisible(true);
+        //Abre a tela via Spring
+       TelaCadastro telaCadastro = SpringContext.getBean(TelaCadastro.class);
+       telaCadastro.setTelaInicial(this);
+       telaCadastro.setVisible(true);
+       this.dispose();
     }//GEN-LAST:event_btncadastrarActionPerformed
 
     private void btnlistarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlistarActionPerformed
         // TODO add your handling code here:
-        TelaListar telalistar = new TelaListar();
-        telalistar.setVisible(true);
+        TelaListar telaListar = SpringContext.getBean(TelaListar.class);
+        telaListar.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnlistarActionPerformed
 
@@ -144,11 +163,12 @@ public final class TelaInicial extends javax.swing.JFrame {
         int linhaeditar = tbltabeladecursos.getSelectedRow();
         Curso dados = lista.get(linhaeditar);
         
-        TelaEditar telaeditar = new TelaEditar(this, dados);
-        
-        telaeditar.setVisible(true);
-        this.dispose();
-        
+       TelaEditar telaEditar = SpringContext.getBean(TelaEditar.class);
+       telaEditar.setCurso(dados);
+       telaEditar.setTelaInicial(this); 
+       telaEditar.setVisible(true);
+       this.dispose();
+       
         }catch(Exception e){
             JOptionPane.showMessageDialog(this, "Selecione uma opção para editar");
         }
@@ -171,10 +191,8 @@ public final class TelaInicial extends javax.swing.JFrame {
             Long id = Long.valueOf(tbltabeladecursos.getValueAt(linharemover, 0).toString());
             Curso c = cursoController.findById(id);
             
-            if(StringUtil.isNullOrEmpty(c.getCodigocurso()) || 
-                StringUtil.isNullOrEmpty(c.getNome())){
+            if(c == null){
                 JOptionPane.showMessageDialog(this, "Curso não encontrado");
-                
             }else{
                 cursoController.remove(c);
                 JOptionPane.showMessageDialog(this, "Dado removido");
@@ -189,31 +207,7 @@ public final class TelaInicial extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btndeletarinformacoesActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new TelaInicial().setVisible(true));
-    }
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btncadastrar;
     private javax.swing.JButton btndeletarinformacoes;

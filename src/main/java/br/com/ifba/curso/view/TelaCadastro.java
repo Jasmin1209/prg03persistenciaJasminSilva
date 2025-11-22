@@ -4,33 +4,38 @@
  */
 package br.com.ifba.curso.view;
 
-import br.com.ifba.curso.controller.CursoController;
 import br.com.ifba.curso.controller.CursoIController;
 import br.com.ifba.curso.entity.Curso;
+import br.com.ifba.infrastructure.spring.SpringContext;
 import br.com.ifba.infrastructure.util.StringUtil;
 import javax.swing.JOptionPane;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 /**
  *
  * @author USER
  */
+
+@Component
+@Scope("prototype")
 public class TelaCadastro extends javax.swing.JFrame {
 
-private final CursoIController cursoController = new CursoController();
+    
+   @Autowired
+    private CursoIController cursoController;
+    
+    private TelaInicial telainicial;
 
 private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(TelaCadastro.class.getName());
-    /**
-     * Creates new form TelaCadastro
-     */
-
-    // Referência à tela inicial para atualizar a tabela após o cadastro
-    private TelaInicial aThis;
     
-    
-    public TelaCadastro(TelaInicial aThis) {
+    public TelaCadastro() {
         initComponents();
-        this.aThis = aThis; //Recebe uma instância de TelaInicial (para atualizar a lista ao salvar um novo curso).
     }
 
+    public void setTelaInicial(TelaInicial telainicial){
+        this.telainicial = telainicial;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -97,8 +102,8 @@ private static final java.util.logging.Logger logger = java.util.logging.Logger.
         
         JOptionPane.showMessageDialog(this, "Cadastro Salvo!");
         
-            if(aThis != null){
-             aThis.atualizarTabela();
+            if(telainicial != null){
+             telainicial.atualizarTabela();
             }
             
         }catch (Exception e){
@@ -109,8 +114,8 @@ private static final java.util.logging.Logger logger = java.util.logging.Logger.
 
     private void btnvoltarcadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnvoltarcadastroActionPerformed
         // TODO add your handling code here:
-        TelaInicial telainicial = new TelaInicial();
-        telainicial.setVisible(true);
+        TelaInicial telaInicial = SpringContext.getBean(TelaInicial.class);
+        telaInicial.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnvoltarcadastroActionPerformed
 

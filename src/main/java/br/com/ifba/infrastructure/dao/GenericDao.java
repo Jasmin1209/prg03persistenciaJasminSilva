@@ -6,10 +6,11 @@ package br.com.ifba.infrastructure.dao;
 
 import br.com.ifba.infrastructure.entity.PersistenceEntity;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
+import jakarta.persistence.PersistenceContext;
+import jakarta.transaction.Transactional;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
+import org.springframework.stereotype.Repository;
 
 /**
  *
@@ -21,39 +22,31 @@ import java.util.List;
  */
 
 @SuppressWarnings("unchecked")
+@Repository
+@Transactional
 public class GenericDao<Entity extends PersistenceEntity> implements GenericIDao<Entity>{
 
-    protected static EntityManager entityManager;
+    @PersistenceContext
+    private EntityManager entityManager;
     
-    static {
-        //Lê o persistence.xml e estabele acesso ao banco de dados "curso"
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("curso");
-        //responsável pelas operações CRUD do banco de dados
-        entityManager = entityManagerFactory.createEntityManager();
-    }
+    
     
     @Override
     public Entity save(Entity obj) {
-        entityManager.getTransaction().begin();
         entityManager.persist(obj);
-        entityManager.getTransaction().commit();
         return obj;
     }
 
     @Override
     public Entity update(Entity obj) {
-        entityManager.getTransaction().begin();
         entityManager.merge(obj);
-        entityManager.getTransaction().commit();
         return obj;
     }
 
     @Override
     public void remove(Entity obj) {
         obj = findById(obj.getId());
-        entityManager.getTransaction().begin();
         entityManager.remove(obj);
-        entityManager.getTransaction().commit();
     }
 
     @Override

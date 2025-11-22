@@ -5,7 +5,6 @@
 package br.com.ifba.curso.entity;
 
 import br.com.ifba.infrastructure.entity.PersistenceEntity;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import java.io.Serializable;
@@ -29,7 +28,7 @@ public class Curso extends PersistenceEntity implements Serializable{
         this.nome = nome;
         this.status = true;
     }
-
+    
     public String getCodigocurso() {return codigocurso;}
     public void setCodigocurso(String codigocurso) {this.codigocurso = codigocurso;}
     
