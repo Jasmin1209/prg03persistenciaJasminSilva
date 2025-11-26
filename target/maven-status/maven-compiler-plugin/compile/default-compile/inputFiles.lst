@@ -1,16 +1,13 @@
 C:\Users\USER\Documents\NetBeansProjects\prg03persistencia\src\main\java\br\com\ifba\curso\controller\CursoController.java
 C:\Users\USER\Documents\NetBeansProjects\prg03persistencia\src\main\java\br\com\ifba\curso\controller\CursoIController.java
-C:\Users\USER\Documents\NetBeansProjects\prg03persistencia\src\main\java\br\com\ifba\curso\dao\CursoDao.java
-C:\Users\USER\Documents\NetBeansProjects\prg03persistencia\src\main\java\br\com\ifba\curso\dao\CursoIDao.java
 C:\Users\USER\Documents\NetBeansProjects\prg03persistencia\src\main\java\br\com\ifba\curso\entity\Curso.java
+C:\Users\USER\Documents\NetBeansProjects\prg03persistencia\src\main\java\br\com\ifba\curso\repository\CursoRepository.java
 C:\Users\USER\Documents\NetBeansProjects\prg03persistencia\src\main\java\br\com\ifba\curso\service\CursoIService.java
 C:\Users\USER\Documents\NetBeansProjects\prg03persistencia\src\main\java\br\com\ifba\curso\service\CursoService.java
 C:\Users\USER\Documents\NetBeansProjects\prg03persistencia\src\main\java\br\com\ifba\curso\view\TelaCadastro.java
 C:\Users\USER\Documents\NetBeansProjects\prg03persistencia\src\main\java\br\com\ifba\curso\view\TelaEditar.java
 C:\Users\USER\Documents\NetBeansProjects\prg03persistencia\src\main\java\br\com\ifba\curso\view\TelaInicial.java
 C:\Users\USER\Documents\NetBeansProjects\prg03persistencia\src\main\java\br\com\ifba\curso\view\TelaListar.java
-C:\Users\USER\Documents\NetBeansProjects\prg03persistencia\src\main\java\br\com\ifba\infrastructure\dao\GenericDao.java
-C:\Users\USER\Documents\NetBeansProjects\prg03persistencia\src\main\java\br\com\ifba\infrastructure\dao\GenericIDao.java
 C:\Users\USER\Documents\NetBeansProjects\prg03persistencia\src\main\java\br\com\ifba\infrastructure\entity\PersistenceEntity.java
 C:\Users\USER\Documents\NetBeansProjects\prg03persistencia\src\main\java\br\com\ifba\infrastructure\spring\SpringContext.java
 C:\Users\USER\Documents\NetBeansProjects\prg03persistencia\src\main\java\br\com\ifba\infrastructure\util\StringUtil.java

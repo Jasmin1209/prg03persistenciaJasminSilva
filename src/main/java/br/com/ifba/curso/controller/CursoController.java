@@ -6,7 +6,6 @@ package br.com.ifba.curso.controller;
 
 import br.com.ifba.curso.entity.Curso;
 import br.com.ifba.curso.service.CursoIService;
-import br.com.ifba.infrastructure.util.StringUtil;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,10 +23,6 @@ public class CursoController implements CursoIController{
     
     @Override
     public Curso save (Curso curso) throws RuntimeException{
-        if(StringUtil.isNullOrEmpty(curso.getCodigocurso()) || 
-                StringUtil.isNullOrEmpty(curso.getNome())){
-            throw new RuntimeException("Todos os dados devem ser preencidos");
-        }
         return cursoIService.save(curso);
     }
     
@@ -37,7 +32,7 @@ public class CursoController implements CursoIController{
     }
     
     @Override
-    public void remove (Curso curso){
+    public void delete (Curso curso){
         cursoIService.remove(curso);
     }
     

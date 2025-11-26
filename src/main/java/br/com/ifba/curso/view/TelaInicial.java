@@ -194,7 +194,7 @@ public class TelaInicial extends javax.swing.JFrame {
             if(c == null){
                 JOptionPane.showMessageDialog(this, "Curso não encontrado");
             }else{
-                cursoController.remove(c);
+                cursoController.delete(c);
                 JOptionPane.showMessageDialog(this, "Dado removido");
                 atualizarTabela();
             }

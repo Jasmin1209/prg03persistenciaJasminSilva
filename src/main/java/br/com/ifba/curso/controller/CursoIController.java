@@ -17,7 +17,7 @@ public interface CursoIController {
     
     public Curso update (Curso curso);
     
-    public void remove (Curso curso);
+    public void delete (Curso curso);
     
     public List<Curso> findAll();
     

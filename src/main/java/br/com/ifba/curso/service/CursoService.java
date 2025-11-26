@@ -4,8 +4,7 @@
  */
 package br.com.ifba.curso.service;
 
-import br.com.ifba.curso.dao.CursoDao;
-import br.com.ifba.curso.dao.CursoIDao;
+import br.com.ifba.curso.repository.CursoRepository;
 import br.com.ifba.curso.entity.Curso;
 import br.com.ifba.infrastructure.util.StringUtil;
 import java.util.List;
@@ -21,8 +20,8 @@ import org.springframework.stereotype.Service;
 public class CursoService implements CursoIService{
     
     @Autowired
-    private CursoIDao cursoDao; 
-    //cursoDao herda todas as funcionalidades do GenericDao sendo possível acessa-las
+    private CursoRepository cursoRepository; 
+    
     
     @Override
     public Curso save (Curso curso) throws RuntimeException{
@@ -30,38 +29,36 @@ public class CursoService implements CursoIService{
                 StringUtil.isNullOrEmpty(curso.getNome())){
             throw new RuntimeException("Todos os dados devem ser preencidos");
         }else{
-            return cursoDao.save(curso);
+            return cursoRepository.save(curso);
         }
     }
     
     @Override
     public Curso update (Curso curso)throws RuntimeException{
        
-        if(cursoDao.findById(curso.getId()) == null){
-            throw new RuntimeException("Curso não encontrado");
+        if(cursoRepository.existsById(curso.getId())){
+            return cursoRepository.save(curso);
         }else{
-            
-        return cursoDao.update(curso);
+            throw new RuntimeException("Curso não encontrado");
         }
     }
     
     @Override
     public void remove (Curso curso){
-        Curso c = cursoDao.findById(curso.getId());
-        if(c == null){
-            throw new RuntimeException("Curso não encontrado");
+        if(cursoRepository.existsById(curso.getId())){
+            cursoRepository.delete(curso);
         }else{
-            cursoDao.remove(c);
+            throw new RuntimeException("Curso não encontrado");
         }
     }
     
     @Override
     public List<Curso> findAll(){
-        return cursoDao.findAll();
+        return cursoRepository.findAll();
     }
     
     @Override
     public Curso findById(Long id){
-        return cursoDao.findById(id);
+        return cursoRepository.findById(id).orElseThrow(() -> new RuntimeException("Curso não encontrado"));
     }
 }
