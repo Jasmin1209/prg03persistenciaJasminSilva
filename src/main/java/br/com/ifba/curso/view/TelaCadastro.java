@@ -21,8 +21,7 @@ import org.springframework.stereotype.Component;
 @Scope("prototype")
 public class TelaCadastro extends javax.swing.JFrame {
 
-    
-   @Autowired
+    @Autowired
     private CursoIController cursoController;
     
     private TelaInicial telainicial;
@@ -97,7 +96,7 @@ private static final java.util.logging.Logger logger = java.util.logging.Logger.
         Curso curso = new Curso();
         curso.setCodigocurso(txtcodigocursocadastro.getText());
         curso.setNome(txtcadastrarnome.getText());
-        curso.setAtivo(true);
+        curso.setStatus(true);
         cursoController.save(curso);
         
         JOptionPane.showMessageDialog(this, "Cadastro Salvo!");

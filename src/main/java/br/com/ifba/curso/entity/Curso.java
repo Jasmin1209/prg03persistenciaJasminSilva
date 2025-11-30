@@ -8,6 +8,9 @@ import br.com.ifba.infrastructure.entity.PersistenceEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import java.io.Serializable;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 /**
  *
@@ -15,33 +18,15 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "curso")
+@Data
+@EqualsAndHashCode(callSuper = true)
+@NoArgsConstructor
 public class Curso extends PersistenceEntity implements Serializable{
     
-    private String codigocurso;
+     private String codigocurso;
     
-    private String nome;
+     private String nome;
     
-    private boolean status;
+     private boolean status;
 
-    public Curso() {
-        this.codigocurso = codigocurso;
-        this.nome = nome;
-        this.status = true;
-    }
-    
-    public String getCodigocurso() {return codigocurso;}
-    public void setCodigocurso(String codigocurso) {this.codigocurso = codigocurso;}
-    
-    public String getNome() {return nome;}
-    public void setNome(String nome) {this.nome = nome;}
-
-    public boolean isAtivo() {return status;}
-    public void setAtivo(boolean ativo) {this.status = ativo;}
-    
-    @Override
-    public String toString() {
-        return "Curso{" + "codigocurso=" + codigocurso + ", nome=" + nome + ", ativo=" + status + '}';
-    }
-    
-    
 }

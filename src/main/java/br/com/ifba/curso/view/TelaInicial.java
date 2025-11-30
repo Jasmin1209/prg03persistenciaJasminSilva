@@ -136,7 +136,7 @@ public class TelaInicial extends javax.swing.JFrame {
                 c.getId(),
                 c.getCodigocurso(),
                 c.getNome(),
-                c.isAtivo() ? "Sim" : "Não"
+                c.isStatus()? "Sim" : "Não"
             });
         }
     }

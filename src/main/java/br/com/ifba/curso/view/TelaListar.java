@@ -110,7 +110,7 @@ public class TelaListar extends javax.swing.JFrame {
                     c.getId(),
                     c.getCodigocurso(),
                     c.getNome(),
-                    c.isAtivo() ? "Ativo" : "Inativo"
+                    c.isStatus()? "Ativo" : "Inativo"
                 });
             }else {
                 JOptionPane.showMessageDialog(this, "Nenhum curso encontrado com esse ID");

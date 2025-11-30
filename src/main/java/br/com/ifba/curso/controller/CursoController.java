@@ -7,7 +7,7 @@ package br.com.ifba.curso.controller;
 import br.com.ifba.curso.entity.Curso;
 import br.com.ifba.curso.service.CursoIService;
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 
 /**
@@ -16,10 +16,10 @@ import org.springframework.stereotype.Controller;
  */
 
 @Controller
+@RequiredArgsConstructor
 public class CursoController implements CursoIController{
     
-    @Autowired
-    private CursoIService cursoIService;
+    private final CursoIService cursoIService;
     
     @Override
     public Curso save (Curso curso) throws RuntimeException{
